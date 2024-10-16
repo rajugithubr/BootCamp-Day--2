@@ -1,0 +1,81 @@
+import java.util.*;
+public class LinkedList {
+    public static class Node {
+        int data;
+        Node next;
+        public Node(int data) {
+          this.data = data;
+          this.next = null;
+        }
+    }
+    public Node head;
+    public Node tail;
+    public int size;
+    public void add(int data) {
+        Node newNode = new Node(data);
+        size++;
+        if (head == null) {
+            head = tail = newNode; // Correct assignment
+        } else {
+            newNode.next = head;
+            head = newNode;
+        }
+    }
+    public void addLast(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = tail = newNode;
+        } else {
+            tail.next = newNode;
+            tail = newNode;
+        }
+    }
+    public void print() {
+        if (head == null) {
+            System.out.println("LL is empty");
+            return;
+        }
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+    public static void SkipModelN(Node head , int M , int N){
+      Node curr = head,t;
+      int count;
+      while(curr!=null){//traves all LL 
+        for(count = 1; count<=M && curr!= null; count++){
+         curr = curr.next;
+        }
+        if(curr == null){
+          return;
+        }
+        t = curr.next;
+        for(count = 1; count<=N && t!=null; count++){
+          Node temp = t;
+          t = t.next;
+        }
+        curr.next = t;
+        curr = t;
+      }
+    }
+    public static void main(String[] args) {
+        LinkedList ll = new LinkedList();
+        int M = 2,N= 2;
+       ll.add(8);
+       ll.add(7);
+       ll.add(6);
+       ll.add(5);
+       ll.add(4);
+       ll.add(3);
+       ll.add(2);
+       ll.add(1);
+       System.out.println("original Linked list");
+       ll.print();
+       SkipModelN(ll.head, M, N);
+       System.out.println("Modefied Linked List");
+       ll.print();
+    }
+}
